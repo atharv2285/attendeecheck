@@ -1,43 +1,132 @@
 import dayjs from 'dayjs';
 
-// Google Sheet URLs for the Event Live Status Page
-// Sheet ID: 1-PdeB6Kus2WlX9W0tEAGHqtwnYqiwUomDA4ep3shBos
-
-const ATTENDEES_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1-PdeB6Kus2WlX9W0tEAGHqtwnYqiwUomDA4ep3shBos/pub?output=csv&gid=0';
-const SCHEDULE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1-PdeB6Kus2WlX9W0tEAGHqtwnYqiwUomDA4ep3shBos/pub?output=csv&gid=1';
-
-// Parse CSV data
-const parseCSV = (csvText) => {
-  const lines = csvText.split('\n');
-  const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-  const data = [];
-  
-  for (let i = 1; i < lines.length; i++) {
-    if (lines[i].trim()) {
-      const values = lines[i].split(',').map(v => v.trim().replace(/"/g, ''));
-      const row = {};
-      headers.forEach((header, index) => {
-        row[header] = values[index] || '';
-      });
-      data.push(row);
-    }
+// Sample data for the Event Live Status Page
+const SAMPLE_ATTENDEES = [
+  {
+    Name: 'Alice Johnson',
+    Status: 'Checked-In',
+    Role: 'Speaker',
+    PhotoURL: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face'
+  },
+  {
+    Name: 'Bob Smith',
+    Status: 'Awaiting',
+    Role: 'Attendee',
+    PhotoURL: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face'
+  },
+  {
+    Name: 'Carla Williams',
+    Status: 'Checked-In',
+    Role: 'Organizer',
+    PhotoURL: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face'
+  },
+  {
+    Name: 'David Lee',
+    Status: 'Awaiting',
+    Role: 'Attendee',
+    PhotoURL: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
+  },
+  {
+    Name: 'Emma Davis',
+    Status: 'Checked-In',
+    Role: 'Speaker',
+    PhotoURL: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face'
+  },
+  {
+    Name: 'Frank Miller',
+    Status: 'Checked-In',
+    Role: 'Attendee',
+    PhotoURL: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face'
+  },
+  {
+    Name: 'Grace Wilson',
+    Status: 'Awaiting',
+    Role: 'Attendee',
+    PhotoURL: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face'
+  },
+  {
+    Name: 'Henry Brown',
+    Status: 'Checked-In',
+    Role: 'Speaker',
+    PhotoURL: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face'
   }
-  
-  return data;
-};
+];
 
-// Fetch attendees data
+const SAMPLE_SCHEDULE = [
+  {
+    title: 'Registration & Welcome Coffee',
+    speaker: 'Event Team',
+    startTime: '08:30',
+    endTime: '09:00',
+    startDateTime: dayjs().format('YYYY-MM-DD') + ' 08:30',
+    endDateTime: dayjs().format('YYYY-MM-DD') + ' 09:00'
+  },
+  {
+    title: 'Opening Keynote: Future of Technology',
+    speaker: 'Alice Johnson',
+    startTime: '09:00',
+    endTime: '10:00',
+    startDateTime: dayjs().format('YYYY-MM-DD') + ' 09:00',
+    endDateTime: dayjs().format('YYYY-MM-DD') + ' 10:00'
+  },
+  {
+    title: 'Morning Break',
+    speaker: '-',
+    startTime: '10:00',
+    endTime: '10:15',
+    startDateTime: dayjs().format('YYYY-MM-DD') + ' 10:00',
+    endDateTime: dayjs().format('YYYY-MM-DD') + ' 10:15'
+  },
+  {
+    title: 'Technical Workshop: AI Implementation',
+    speaker: 'Bob Smith',
+    startTime: '10:15',
+    endTime: '11:30',
+    startDateTime: dayjs().format('YYYY-MM-DD') + ' 10:15',
+    endDateTime: dayjs().format('YYYY-MM-DD') + ' 11:30'
+  },
+  {
+    title: 'Panel Discussion: Industry Trends',
+    speaker: 'Carla Williams, Emma Davis',
+    startTime: '11:30',
+    endTime: '12:30',
+    startDateTime: dayjs().format('YYYY-MM-DD') + ' 11:30',
+    endDateTime: dayjs().format('YYYY-MM-DD') + ' 12:30'
+  },
+  {
+    title: 'Lunch Break',
+    speaker: '-',
+    startTime: '12:30',
+    endTime: '13:30',
+    startDateTime: dayjs().format('YYYY-MM-DD') + ' 12:30',
+    endDateTime: dayjs().format('YYYY-MM-DD') + ' 13:30'
+  },
+  {
+    title: 'Afternoon Session: Innovation Lab',
+    speaker: 'Henry Brown',
+    startTime: '13:30',
+    endTime: '14:45',
+    startDateTime: dayjs().format('YYYY-MM-DD') + ' 13:30',
+    endDateTime: dayjs().format('YYYY-MM-DD') + ' 14:45'
+  },
+  {
+    title: 'Closing Remarks & Networking',
+    speaker: 'Event Team',
+    startTime: '14:45',
+    endTime: '15:30',
+    startDateTime: dayjs().format('YYYY-MM-DD') + ' 14:45',
+    endDateTime: dayjs().format('YYYY-MM-DD') + ' 15:30'
+  }
+];
+
+// Fetch attendees data (now returns sample data)
 export const fetchAttendees = async () => {
   try {
-    const response = await fetch(ATTENDEES_SHEET_URL);
-    const csvText = await response.text();
-    const attendees = parseCSV(csvText);
-    
     // Split into checked-in and awaiting
-    const checkedIn = attendees.filter(attendee => 
+    const checkedIn = SAMPLE_ATTENDEES.filter(attendee => 
       attendee.Status?.toLowerCase() === 'checked-in'
     );
-    const awaiting = attendees.filter(attendee => 
+    const awaiting = SAMPLE_ATTENDEES.filter(attendee => 
       attendee.Status?.toLowerCase() !== 'checked-in'
     );
     
@@ -48,54 +137,13 @@ export const fetchAttendees = async () => {
   }
 };
 
-// Fetch schedule data
+// Fetch schedule data (now returns sample data)
 export const fetchSchedule = async () => {
   try {
-    const response = await fetch(SCHEDULE_SHEET_URL);
-    const csvText = await response.text();
-    const schedule = parseCSV(csvText);
-    
-    // Parse and format schedule data
-    const formattedSchedule = schedule.map(session => ({
-      title: session['Session Title'] || session.Title || '',
-      speaker: session.Speaker || '',
-      startTime: session['Start Time'] || session.StartTime || '',
-      endTime: session['End Time'] || session.EndTime || '',
-      // Convert time strings to dayjs objects for today
-      startDateTime: dayjs().format('YYYY-MM-DD') + ' ' + (session['Start Time'] || session.StartTime || ''),
-      endDateTime: dayjs().format('YYYY-MM-DD') + ' ' + (session['End Time'] || session.EndTime || '')
-    }));
-    
-    return formattedSchedule;
+    return SAMPLE_SCHEDULE;
   } catch (error) {
     console.error('Error fetching schedule:', error);
-    // Return sample schedule if the tab doesn't exist yet
-    return [
-      {
-        title: 'Opening Keynote',
-        speaker: 'Alice Johnson',
-        startTime: '09:00',
-        endTime: '10:00',
-        startDateTime: dayjs().format('YYYY-MM-DD') + ' 09:00',
-        endDateTime: dayjs().format('YYYY-MM-DD') + ' 10:00'
-      },
-      {
-        title: 'Technical Workshop',
-        speaker: 'Bob Smith',
-        startTime: '10:15',
-        endTime: '11:30',
-        startDateTime: dayjs().format('YYYY-MM-DD') + ' 10:15',
-        endDateTime: dayjs().format('YYYY-MM-DD') + ' 11:30'
-      },
-      {
-        title: 'Panel Discussion',
-        speaker: 'Carla Williams',
-        startTime: '12:30',
-        endTime: '13:30',
-        startDateTime: dayjs().format('YYYY-MM-DD') + ' 12:30',
-        endDateTime: dayjs().format('YYYY-MM-DD') + ' 13:30'
-      }
-    ];
+    return [];
   }
 };
 

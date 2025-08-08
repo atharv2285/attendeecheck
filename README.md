@@ -1,6 +1,6 @@
 # Event Live Status Page
 
-A responsive, real-time event status page that displays current sessions, upcoming sessions, and attendee check-in status from Google Sheets.
+A responsive, real-time event status page that displays current sessions, upcoming sessions, and attendee check-in status with sample data.
 
 ## Features
 
@@ -10,7 +10,7 @@ A responsive, real-time event status page that displays current sessions, upcomi
 - 📊 **Live Session Tracking**: Shows current and next sessions with countdowns
 - 👥 **Attendee Lists**: Separate sections for checked-in and awaiting attendees
 - 🔔 **Browser Notifications**: Optional notifications for upcoming sessions
-- 📈 **Google Sheets Integration**: Pulls data directly from published Google Sheets
+- 📈 **Sample Data**: Pre-configured with realistic event data
 
 ## Quick Start
 
@@ -20,49 +20,40 @@ A responsive, real-time event status page that displays current sessions, upcomi
    npm install
    ```
 
-2. **Configure Google Sheets**
-   - Create a Google Sheet with two tabs: "Attendees" and "Schedule"
-   - Set up the required columns (see Google Sheets Setup below)
-   - Publish to web and get the CSV URLs
-
-3. **Update Sheet URLs**
-   - Open `src/utils/fetchSheetData.js`
-   - Replace `YOUR_SHEET_ID` with your actual Google Sheet ID
-   - Update the URLs for both attendees and schedule tabs
-
-4. **Run the App**
+2. **Run the App**
    ```bash
    npm run dev
    ```
 
-5. **Deploy**
+3. **Deploy**
    ```bash
    npm run build
    ```
    Deploy the `dist` folder to Vercel, Netlify, or your preferred hosting service.
 
-## Google Sheets Setup
+## Sample Data
 
-### Attendees Tab
-Create a tab named "Attendees" with these columns:
-- **Name** (required): Attendee's full name
-- **Status** (required): "Checked-In" or any other status
-- **Role** (optional): Attendee's role (e.g., "Speaker", "Organizer")
-- **Photo URL** (optional): URL to attendee's photo
+The app comes with pre-configured sample data:
 
-### Schedule Tab
-Create a tab named "Schedule" with these columns:
-- **Session Title** (required): Name of the session
-- **Speaker** (required): Speaker's name
-- **Start Time** (required): Time in HH:MM format (e.g., "09:00")
-- **End Time** (required): Time in HH:MM format (e.g., "10:30")
+### Attendees
+- **Alice Johnson** - Checked-In (Speaker)
+- **Bob Smith** - Awaiting (Attendee)
+- **Carla Williams** - Checked-In (Organizer)
+- **David Lee** - Awaiting (Attendee)
+- **Emma Davis** - Checked-In (Speaker)
+- **Frank Miller** - Checked-In (Attendee)
+- **Grace Wilson** - Awaiting (Attendee)
+- **Henry Brown** - Checked-In (Speaker)
 
-### Publishing to Web
-1. Open your Google Sheet
-2. Go to **File > Share > Publish to web**
-3. Choose the specific tab and format (CSV)
-4. Copy the generated URL
-5. Replace the URLs in `src/utils/fetchSheetData.js`
+### Schedule
+- **08:30-09:00** - Registration & Welcome Coffee
+- **09:00-10:00** - Opening Keynote: Future of Technology (Alice Johnson)
+- **10:00-10:15** - Morning Break
+- **10:15-11:30** - Technical Workshop: AI Implementation (Bob Smith)
+- **11:30-12:30** - Panel Discussion: Industry Trends (Carla Williams, Emma Davis)
+- **12:30-13:30** - Lunch Break
+- **13:30-14:45** - Afternoon Session: Innovation Lab (Henry Brown)
+- **14:45-15:30** - Closing Remarks & Networking
 
 ## Customization
 
@@ -71,6 +62,11 @@ Update the event name and date in the Header component:
 ```jsx
 <Header eventName="Your Event Name" eventDate="2024-12-15" />
 ```
+
+### Sample Data
+Modify the sample data in `src/utils/fetchSheetData.js`:
+- `SAMPLE_ATTENDEES` - Update attendee information
+- `SAMPLE_SCHEDULE` - Update event schedule
 
 ### Styling
 The app uses Tailwind CSS with custom components. You can modify:
@@ -97,27 +93,20 @@ Users will be prompted to allow notifications on first visit.
 - **Frontend**: React 18 + Vite
 - **Styling**: Tailwind CSS
 - **Date/Time**: dayjs
-- **Data**: Google Sheets CSV API
+- **Data**: Sample data (no external dependencies)
 - **Deployment**: Vercel/Netlify ready
 
 ## Troubleshooting
-
-### CORS Issues
-If you encounter CORS errors:
-1. Ensure your Google Sheet is published to web
-2. Use the CSV format URL
-3. Check that the sheet is publicly accessible
-
-### Data Not Loading
-1. Verify your Google Sheet URLs are correct
-2. Check that your sheet has the required columns
-3. Ensure the sheet is published to web
-4. Check browser console for error messages
 
 ### Styling Issues
 1. Ensure Tailwind CSS is properly configured
 2. Check that `src/index.css` contains the Tailwind directives
 3. Verify the `tailwind.config.js` includes the correct content paths
+
+### Build Issues
+1. Make sure all dependencies are installed: `npm install`
+2. Check Node.js version compatibility
+3. Clear node_modules and reinstall if needed
 
 ## License
 
