@@ -23,7 +23,7 @@ const NextSession = ({ session }) => {
     return (
       <div className="session-card p-8 mb-6 fade-in">
         <div className="text-center">
-          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center">
             <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
@@ -44,7 +44,7 @@ const NextSession = ({ session }) => {
         </h2>
         <div className="flex items-center space-x-3">
           <div className="upcoming-indicator"></div>
-          <span className="text-blue-400 font-bold text-lg tracking-wider">UPCOMING</span>
+          <span className="text-orange-400 font-bold text-lg tracking-wider">UPCOMING</span>
         </div>
       </div>
       
@@ -54,7 +54,7 @@ const NextSession = ({ session }) => {
           <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
             {session.title}
           </h3>
-          <p className="text-blue-300 font-semibold text-lg flex items-center">
+          <p className="text-orange-300 font-semibold text-lg flex items-center">
             <span className="mr-2">👤</span>
             {session.speaker}
           </p>
@@ -81,7 +81,7 @@ const NextSession = ({ session }) => {
         {/* Countdown */}
         {timeUntil && (
           <div className="slide-in" style={{ animationDelay: '0.6s' }}>
-            <div className="bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-blue-500/20 rounded-xl p-6 border border-blue-500/30 relative overflow-hidden">
+            <div className="bg-gradient-to-r from-orange-500/20 via-red-500/20 to-orange-500/20 rounded-xl p-6 border border-orange-500/30 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-pulse"></div>
               <div className="relative z-10">
                 <p className="text-gray-300 text-sm mb-2 flex items-center">

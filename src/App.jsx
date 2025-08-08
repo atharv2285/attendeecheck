@@ -90,17 +90,17 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center">
+      <div className="min-h-screen demo-day-bg flex items-center justify-center">
         <div className="text-center">
-          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center animate-spin">
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center animate-spin">
             <div className="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
           </div>
           <h2 className="text-2xl font-bold text-white mb-2">Loading Event Data</h2>
-          <p className="text-blue-200">Please wait while we fetch the latest updates...</p>
+          <p className="text-orange-200">Please wait while we fetch the latest updates...</p>
           <div className="mt-4 flex justify-center space-x-2">
-            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-            <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-            <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+            <div className="w-2 h-2 bg-orange-400 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-red-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            <div className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
           </div>
         </div>
       </div>
@@ -109,7 +109,7 @@ function App() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center">
+      <div className="min-h-screen demo-day-bg flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-4">
           <div className="session-card p-8">
             <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center">
@@ -121,7 +121,7 @@ function App() {
             <p className="text-gray-300 mb-6">{error}</p>
             <button 
               onClick={fetchData}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               🔄 Retry Connection
             </button>
@@ -132,7 +132,7 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+    <div className="min-h-screen demo-day-bg">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <Header />
@@ -152,9 +152,9 @@ function App() {
         {/* Footer */}
         <footer className="text-center mt-16 pb-8 fade-in">
           <div className="flex items-center justify-center space-x-4 mb-4">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <p className="text-green-400 font-medium">Auto-refreshing every 30 seconds</p>
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
+            <p className="text-orange-400 font-medium">Auto-refreshing every 30 seconds</p>
+            <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
           </div>
           <p className="text-gray-400 text-sm">
             Last updated: {new Date().toLocaleTimeString()}
