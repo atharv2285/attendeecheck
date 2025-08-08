@@ -21,8 +21,13 @@ const CurrentSession = ({ session }) => {
 
   if (!session) {
     return (
-      <div className="card p-6 mb-6">
+      <div className="session-card p-8 mb-6 fade-in">
         <div className="text-center">
+          <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-gray-500 to-gray-600 rounded-full flex items-center justify-center">
+            <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
           <h2 className="text-2xl font-bold text-white mb-2">Current Session</h2>
           <p className="text-gray-300">No session currently in progress</p>
         </div>
@@ -31,45 +36,63 @@ const CurrentSession = ({ session }) => {
   }
 
   return (
-    <div className="card p-6 mb-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-2xl font-bold text-white">Now Live</h2>
-        <div className="flex items-center space-x-2">
-          <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-          <span className="text-red-400 font-medium text-sm">LIVE</span>
+    <div className="session-card p-8 mb-6 fade-in">
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-3xl font-bold text-white flex items-center">
+          <span className="mr-3">🎙️</span>
+          Now Live
+        </h2>
+        <div className="flex items-center space-x-3">
+          <div className="live-indicator"></div>
+          <span className="text-red-400 font-bold text-lg tracking-wider">LIVE</span>
         </div>
       </div>
       
-      <div className="space-y-4">
+      <div className="space-y-6">
         {/* Session Title */}
-        <div>
-          <h3 className="text-xl font-semibold text-white mb-1">
+        <div className="slide-in" style={{ animationDelay: '0.2s' }}>
+          <h3 className="text-2xl font-bold text-white mb-2 leading-tight">
             {session.title}
           </h3>
-          <p className="text-blue-300 font-medium">
+          <p className="text-blue-300 font-semibold text-lg flex items-center">
+            <span className="mr-2">👤</span>
             {session.speaker}
           </p>
         </div>
         
         {/* Time Information */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white/5 rounded-lg p-3">
-            <p className="text-gray-400 text-sm">Start Time</p>
-            <p className="text-white font-medium">{session.startTime}</p>
+        <div className="grid grid-cols-2 gap-4 slide-in" style={{ animationDelay: '0.4s' }}>
+          <div className="time-info">
+            <p className="text-gray-400 text-sm mb-1 flex items-center">
+              <span className="mr-2">🕐</span>
+              Start Time
+            </p>
+            <p className="text-white font-bold text-lg">{session.startTime}</p>
           </div>
-          <div className="bg-white/5 rounded-lg p-3">
-            <p className="text-gray-400 text-sm">End Time</p>
-            <p className="text-white font-medium">{session.endTime}</p>
+          <div className="time-info">
+            <p className="text-gray-400 text-sm mb-1 flex items-center">
+              <span className="mr-2">⏰</span>
+              End Time
+            </p>
+            <p className="text-white font-bold text-lg">{session.endTime}</p>
           </div>
         </div>
         
         {/* Countdown */}
         {timeLeft && (
-          <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-lg p-4 border border-red-500/30">
-            <p className="text-gray-300 text-sm mb-1">Time Remaining</p>
-            <p className="text-2xl font-bold text-white">
-              {timeLeft.isPast ? 'Session ended' : formatTimeDifference(timeLeft)}
-            </p>
+          <div className="slide-in" style={{ animationDelay: '0.6s' }}>
+            <div className="bg-gradient-to-r from-red-500/20 via-orange-500/20 to-red-500/20 rounded-xl p-6 border border-red-500/30 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-pulse"></div>
+              <div className="relative z-10">
+                <p className="text-gray-300 text-sm mb-2 flex items-center">
+                  <span className="mr-2">⏱️</span>
+                  Time Remaining
+                </p>
+                <p className="countdown-timer text-3xl">
+                  {timeLeft.isPast ? 'Session ended' : formatTimeDifference(timeLeft)}
+                </p>
+              </div>
+            </div>
           </div>
         )}
       </div>

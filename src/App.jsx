@@ -92,8 +92,16 @@ function App() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
-          <p className="text-white text-lg">Loading event data...</p>
+          <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center animate-spin">
+            <div className="w-12 h-12 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+          </div>
+          <h2 className="text-2xl font-bold text-white mb-2">Loading Event Data</h2>
+          <p className="text-blue-200">Please wait while we fetch the latest updates...</p>
+          <div className="mt-4 flex justify-center space-x-2">
+            <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+            <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+          </div>
         </div>
       </div>
     );
@@ -103,14 +111,19 @@ function App() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto px-4">
-          <div className="card p-6">
+          <div className="session-card p-8">
+            <div className="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center">
+              <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
             <h2 className="text-2xl font-bold text-white mb-4">Connection Error</h2>
-            <p className="text-gray-300 mb-4">{error}</p>
+            <p className="text-gray-300 mb-6">{error}</p>
             <button 
               onClick={fetchData}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
-              Retry
+              🔄 Retry Connection
             </button>
           </div>
         </div>
@@ -125,7 +138,7 @@ function App() {
         <Header />
         
         {/* Session Information */}
-        <div className="max-w-4xl mx-auto space-y-6">
+        <div className="max-w-5xl mx-auto space-y-8">
           <CurrentSession session={currentSession} />
           <NextSession session={nextSession} />
           
@@ -137,9 +150,14 @@ function App() {
         </div>
         
         {/* Footer */}
-        <footer className="text-center mt-12 pb-8">
+        <footer className="text-center mt-16 pb-8 fade-in">
+          <div className="flex items-center justify-center space-x-4 mb-4">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <p className="text-green-400 font-medium">Auto-refreshing every 30 seconds</p>
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          </div>
           <p className="text-gray-400 text-sm">
-            Auto-refreshing every 30 seconds • Last updated: {new Date().toLocaleTimeString()}
+            Last updated: {new Date().toLocaleTimeString()}
           </p>
         </footer>
       </div>
