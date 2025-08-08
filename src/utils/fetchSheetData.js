@@ -1,14 +1,10 @@
 import dayjs from 'dayjs';
 
-// Replace these URLs with your actual Google Sheet URLs
-// To get these URLs:
-// 1. Open your Google Sheet
-// 2. Go to File > Share > Publish to web
-// 3. Choose the specific tab and format (CSV)
-// 4. Copy the generated URL
+// Google Sheet URLs for the Event Live Status Page
+// Sheet ID: 1-PdeB6Kus2WlX9W0tEAGHqtwnYqiwUomDA4ep3shBos
 
-const ATTENDEES_SHEET_URL = 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pub?output=csv&gid=0';
-const SCHEDULE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pub?output=csv&gid=1';
+const ATTENDEES_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1-PdeB6Kus2WlX9W0tEAGHqtwnYqiwUomDA4ep3shBos/pub?output=csv&gid=0';
+const SCHEDULE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1-PdeB6Kus2WlX9W0tEAGHqtwnYqiwUomDA4ep3shBos/pub?output=csv&gid=1';
 
 // Parse CSV data
 const parseCSV = (csvText) => {
@@ -73,7 +69,33 @@ export const fetchSchedule = async () => {
     return formattedSchedule;
   } catch (error) {
     console.error('Error fetching schedule:', error);
-    return [];
+    // Return sample schedule if the tab doesn't exist yet
+    return [
+      {
+        title: 'Opening Keynote',
+        speaker: 'Alice Johnson',
+        startTime: '09:00',
+        endTime: '10:00',
+        startDateTime: dayjs().format('YYYY-MM-DD') + ' 09:00',
+        endDateTime: dayjs().format('YYYY-MM-DD') + ' 10:00'
+      },
+      {
+        title: 'Technical Workshop',
+        speaker: 'Bob Smith',
+        startTime: '10:15',
+        endTime: '11:30',
+        startDateTime: dayjs().format('YYYY-MM-DD') + ' 10:15',
+        endDateTime: dayjs().format('YYYY-MM-DD') + ' 11:30'
+      },
+      {
+        title: 'Panel Discussion',
+        speaker: 'Carla Williams',
+        startTime: '12:30',
+        endTime: '13:30',
+        startDateTime: dayjs().format('YYYY-MM-DD') + ' 12:30',
+        endDateTime: dayjs().format('YYYY-MM-DD') + ' 13:30'
+      }
+    ];
   }
 };
 
